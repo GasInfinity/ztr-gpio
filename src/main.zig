@@ -188,7 +188,7 @@ pub fn main() void {
                                 irq_config |= readMaskedShifted(u32, @ptrCast(@alignCast(&gpio.@"3".irq_config)), (req.int() & hw.Pin.gpio3.int()), -10);
                             }
 
-                            break :blk .of(.success, .empty);
+                            break :blk .of(.success, @bitCast(irq_config));
                         }),
                     .set_interrupt_enabled => if (ipc.readRequest(Gpio.command.SetInterruptEnabled)) |req|
                         ipc.writeResponse(Gpio.command.SetInterruptEnabled, blk: {
